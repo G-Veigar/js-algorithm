@@ -12,17 +12,14 @@ function flat(arr) {
 }
 
 // 传入参数控制打平的层级
-let flat2 = (function(){
+let flat2 = (arr, flatLevel) => {
     let flatLevelIndex = 0
-    return function(arr, flatLevel) {
+    function _r(arr, flatLevel) {
         flatLevelIndex += 1
         let res = []
         for(let i = 0; i < arr.length; i++) {
-            if(Array.isArray(arr[i])) {
-                console.log(flatLevel, flatLevelIndex)
-            }
             if(Array.isArray(arr[i]) && flatLevel >= flatLevelIndex) {
-                res = [...res, ...flat2(arr[i], flatLevel)]
+                res = [...res, ..._r(arr[i], flatLevel)]
             } else {
                 res.push(arr[i])
             }
@@ -30,5 +27,12 @@ let flat2 = (function(){
         flatLevelIndex -= 1
         return res
     }
-})()
+    return _r(arr, flatLevel)
+}
+
+let arr = [1,2, [3, [4, 5]]]
+
+let res = flat2(arr, 2)
+
+console.log(res)
 
