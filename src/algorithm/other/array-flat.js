@@ -36,3 +36,4 @@ let res = flat2(arr, 2)
 
 console.log(res)
 
+

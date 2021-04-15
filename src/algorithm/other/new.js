@@ -8,6 +8,7 @@
 
 function myNew(fun, ...params) {
     let obj = Object.create(fun.prototype)
+    obj.constructor = fun
     let res = fun.apply(obj, params)
     return  res instanceof Object ? res : obj
 }
